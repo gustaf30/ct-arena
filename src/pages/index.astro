@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const img = (name: string) => `${import.meta.env.BASE_URL}img/${name}`;
+const vid = (name: string) => `${import.meta.env.BASE_URL}vid/${name}`;
+const icon = (name: string) => `${import.meta.env.BASE_URL}icon/${name}`;
+const WPP = 'https://wa.me/5542991322939';
+const INSTA = 'https://instagram.com/ctarenateampg';
+const MAP_EMBED =
+	'https://maps.google.com/maps?q=' +
+	encodeURIComponent('Rua Minas Gerais, 887 - Boa Vista, Ponta Grossa - PR') +
+	'&t=&z=16&ie=UTF8&iwloc=&output=embed';
+const MAP_LINK =
+	'https://www.google.com/maps/search/?api=1&query=' +
+	encodeURIComponent('Rua Minas Gerais, 887 - Boa Vista, Ponta Grossa - PR');
+
+const modalidades = [
+	{
+		icon: icon('glove.png'),
+		alt: 'Luva de boxe',
+		nome: 'Muay Thai',
+		desc: 'A arte marcial tailandesa. Socos, chutes, joelhadas e clinch, do básico ao competitivo.',
+		destaque: true,
+	},
+	{
+		icon: icon('kimono.png'),
+		alt: 'Kimono de jiu jitsu',
+		nome: 'Jiu-Jitsu',
+		desc: 'Luta de chão com controle e finalizações. Força, técnica e raciocínio.',
+	},
+	{
+		icon: icon('berimbau.png'),
+		alt: 'Berimbau',
+		nome: 'Capoeira',
+		desc: 'Arte marcial brasileira que une luta, música e movimento.',
+	},
+];
+
+const modalBadge: Record<string, string> = {
+	'Muay Thai': 'bg-amber-400',
+	'Muay Thai (feminino)': 'bg-gradient-to-r from-amber-400 to-rose-400',
+	'Jiu-Jitsu': 'bg-sky-400',
+	'Capoeira': 'bg-emerald-400',
+};
+
+const diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+
+const horarios = [
+	{ hora: '9h', celulas: [null, 'Muay Thai', null, 'Muay Thai', null] },
+	{ hora: '14h', celulas: [null, 'Muay Thai', null, 'Muay Thai', null] },
+	{
+		hora: '18h30',
+		celulas: ['Muay Thai', 'Muay Thai (feminino)', 'Muay Thai', 'Muay Thai (feminino)', 'Muay Thai'],
+	},
+	{ hora: '19h30', celulas: ['Muay Thai', 'Jiu-Jitsu', 'Muay Thai', 'Jiu-Jitsu', 'Muay Thai'] },
+	{ hora: '20h30', celulas: ['Muay Thai', 'Capoeira', 'Muay Thai', 'Capoeira', null] },
+];
+
+const precos = [
+	{
+		nome: 'Muay Thai',
+		planos: ['1x/semana - R$ 100', '2x/semana - R$ 130', '3x/semana - R$ 150'],
+		destaque: true,
+	},
+	{
+		nome: 'Jiu-Jitsu',
+		planos: ['2x/semana - R$ 140'],
+	},
+	{
+		nome: 'Capoeira',
+		planos: ['1x/semana - R$ 80', '2x/semana - R$ 100'],
+	},
+];
+---
+
+<Layout>
+	<!-- Hero -->
+	<section
+		id="inicio"
+		class="relative flex min-h-[100dvh] items-center overflow-hidden bg-neutral-950 pt-24 pb-16"
+	>
+		<img
+			src={img('academia2.jpeg')}
+			alt=""
+			class="absolute inset-0 h-full w-full object-cover"
+			loading="eager"
+			fetchpriority="high"
+			aria-hidden="true"
+		/>
+		<div
+			class="absolute inset-0"
+			aria-hidden="true"
+			style="background: linear-gradient(to right, rgb(10 10 10 / 0.92) 0%, rgb(10 10 10 / 0.72) 45%, rgb(10 10 10 / 0.35) 100%), linear-gradient(to top, rgb(10 10 10 / 0.9) 0%, transparent 35%)"
+		></div>
+		<div class="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12">
+			<div class="lg:col-span-7">
+				<p class="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">
+					Academia de artes marciais
+				</p>
+				<h1 class="mb-6 text-5xl font-extrabold tracking-tighter sm:text-6xl lg:text-7xl">
+					CT <span class="text-amber-400">ARENA</span> TEAM
+				</h1>
+				<p class="mb-10 max-w-xl text-lg leading-relaxed text-neutral-300">
+					Muay Thai, Jiu-Jitsu e Capoeira em Ponta Grossa. Treinos para todos os níveis, do
+					iniciante ao competidor.
+				</p>
+				<div class="flex flex-wrap items-center gap-4">
+					<a
+						href={WPP}
+						target="_blank"
+						rel="noopener"
+						class="rounded-full bg-amber-500 px-7 py-3 font-semibold text-neutral-950 transition hover:bg-amber-400 active:scale-[0.98]"
+					>
+						Agendar aula experimental
+					</a>
+					<a
+						href="#horarios"
+						class="rounded-full border border-white/20 bg-neutral-950/40 px-7 py-3 font-semibold text-neutral-100 backdrop-blur-sm transition hover:border-amber-400 hover:text-amber-300 active:scale-[0.98]"
+					>
+						Ver horários
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Sobre -->
+	<section id="sobre" class="scroll-mt-16 border-t border-white/5 py-24">
+		<div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 md:grid-cols-2">
+			<div class="relative mx-auto w-full max-w-md" data-reveal>
+				<div
+					class="pointer-events-none absolute -inset-4 -z-10 rounded-3xl border border-amber-500/20"
+					aria-hidden="true"
+				></div>
+				<img
+					src={img('anaise1.jpeg')}
+					alt="Foto de Anaise Fonseca, professora de Muay Thai"
+					class="aspect-[4/5] w-full rounded-2xl object-cover ring-4 ring-amber-500/40"
+				/>
+			</div>
+			<div data-reveal style="--reveal-delay: 100ms">
+				<h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-amber-400">Quem sou</h2>
+				<h3 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Anaise Fonseca</h3>
+				<div class="space-y-5 text-lg leading-relaxed text-neutral-400">
+					<p>
+						Sou professora de Muay Thai e responsável pela CT Arena Team. Aos 50 anos, são 9 anos
+						de treino, 5 anos dando aula e o kruang preto da modalidade.
+					</p>
+					<p>
+						Minha missão é ensinar com a mesma dedicação com que aprendi: técnica, disciplina e
+						respeito dentro e fora do ringue.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Modalidades -->
+	<section id="modalidades" class="scroll-mt-16 border-t border-white/5 bg-neutral-900/40 py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6">
+			<h2 class="mb-14 text-3xl font-bold tracking-tight sm:text-4xl">Três artes, um só lugar</h2>
+			<div class="grid gap-5 md:grid-cols-3">
+				{modalidades.map((m, i) =>
+					m.destaque ? (
+						<article
+							class="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-amber-500/40 bg-gradient-to-br from-amber-500/15 to-neutral-900 p-8 transition hover:border-amber-500"
+							data-reveal
+						>
+							<div>
+								<img src={m.icon} alt={m.alt} class="mb-6 h-14 w-14 object-contain" />
+								<h3 class="mb-3 text-2xl font-bold">{m.nome}</h3>
+								<p class="max-w-md text-neutral-300">{m.desc}</p>
+							</div>
+						</article>
+					) : (
+						<article
+							class="flex flex-col justify-between rounded-2xl border border-white/10 bg-neutral-950 p-8 transition hover:border-amber-500"
+							data-reveal
+							style={`--reveal-delay: ${i * 80}ms`}
+						>
+							<div>
+								<img src={m.icon} alt={m.alt} class="mb-6 h-14 w-14 object-contain" />
+								<h3 class="mb-3 text-2xl font-bold">{m.nome}</h3>
+								<p class="text-neutral-400">{m.desc}</p>
+							</div>
+						</article>
+					)
+				)}
+			</div>
+			<p class="mt-12 border-t border-white/10 pt-6 text-center text-sm text-neutral-400">
+				Todas as modalidades oferecem{' '}
+				<span class="font-semibold text-amber-400">aula experimental gratuita</span>.
+			</p>
+		</div>
+	</section>
+
+	<!-- Horários -->
+	<section id="horarios" class="scroll-mt-16 border-t border-white/5 py-24">
+		<div class="mx-auto max-w-5xl px-4 sm:px-6">
+			<h2 class="mb-14 text-3xl font-bold tracking-tight sm:text-4xl">Horários das aulas</h2>
+			<div class="overflow-x-auto rounded-2xl border border-white/10">
+				<table class="w-full min-w-[44rem] border-collapse text-left">
+					<thead>
+						<tr class="border-b border-white/15 bg-neutral-900/80">
+							<th scope="col" class="px-5 py-4 text-sm font-semibold text-neutral-400">Horário</th>
+							{diasSemana.map((dia) => (
+								<th scope="col" class="px-5 py-4 text-sm font-semibold text-neutral-400">
+									{dia}
+								</th>
+							))}
+						</tr>
+					</thead>
+					<tbody>
+						{horarios.map((slot, i) => (
+							<tr class="transition hover:bg-white/[0.03]" data-reveal style={`--reveal-delay: ${i * 60}ms`}>
+								<th
+									scope="row"
+									class={`px-5 py-4 font-mono text-sm font-semibold text-amber-400 ${
+										i < horarios.length - 1 ? 'border-b border-white/10' : ''
+									}`}
+								>
+									{slot.hora}
+								</th>
+								{slot.celulas.map((celula, j) => (
+									<td
+										class={`px-5 py-4 text-sm ${
+											celula ? 'text-neutral-100' : 'text-neutral-600'
+										} ${i < horarios.length - 1 ? 'border-b border-white/10' : ''}`}
+									>
+									{celula ? (
+										<span
+											class={`inline-block rounded-full px-3 py-1 text-xs font-semibold text-neutral-950 shadow-sm ${modalBadge[celula]}`}
+										>
+											{celula}
+										</span>
+									) : (
+										''
+									)}
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<!-- Valores -->
+	<section id="valores" class="scroll-mt-16 border-t border-white/5 bg-neutral-900/40 py-24">
+		<div class="mx-auto max-w-5xl px-4 sm:px-6">
+			<h2 class="mb-14 text-3xl font-bold tracking-tight sm:text-4xl">Valores das mensalidades</h2>
+			<div class="grid gap-5 md:grid-cols-3">
+				{precos.map((p, i) => (
+					<div
+						class={`rounded-2xl border p-8 transition ${
+							p.destaque
+								? 'border-amber-500/40 bg-gradient-to-b from-amber-500/15 to-neutral-900'
+								: 'border-white/10 bg-neutral-950'
+						}`}
+						data-reveal
+						style={`--reveal-delay: ${i * 80}ms`}
+					>
+						<h3 class="mb-6 text-xl font-bold">{p.nome}</h3>
+						<ul class="space-y-3">
+							{p.planos.map((plano) => (
+								<li
+									class={`rounded-full border px-4 py-2 text-center text-sm font-medium ${
+										p.destaque
+											? 'border-amber-500/40 text-neutral-100'
+											: 'border-white/15 text-neutral-300'
+									}`}
+								>
+									{plano}
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Localização -->
+	<section id="localizacao" class="scroll-mt-16 border-t border-white/5 py-24">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6">
+			<div class="grid items-stretch gap-10 md:grid-cols-2">
+				<div class="flex flex-col justify-center">
+					<h2 class="mb-8 text-3xl font-bold tracking-tight sm:text-4xl">Onde estamos</h2>
+					<p class="mb-4 text-lg font-semibold text-neutral-100">Rua Minas Gerais, 887 - Boa Vista</p>
+					<p class="mb-8 text-neutral-400">Ponta Grossa - PR</p>
+					<div class="space-y-3 border-t border-white/10 pt-6 text-sm">
+						<p class="text-neutral-300">
+							<span class="font-semibold text-amber-400">WhatsApp:</span> (42) 99132-2939
+						</p>
+						<p class="text-neutral-300">
+							<span class="font-semibold text-amber-400">Instagram:</span> @ctarenateampg
+						</p>
+					</div>
+					<a
+						href={MAP_LINK}
+						target="_blank"
+						rel="noopener"
+						class="mt-8 w-fit rounded-full bg-amber-500 px-6 py-3 font-semibold text-neutral-950 transition hover:bg-amber-400 active:scale-[0.98]"
+					>
+						Ver no Google Maps
+					</a>
+				</div>
+				<div class="overflow-hidden rounded-2xl border border-white/10">
+					<iframe
+						src={MAP_EMBED}
+						title="Mapa com a localização da CT Arena Team"
+						class="h-72 w-full md:h-full"
+						style="border: 0"
+						loading="lazy"
+						allowfullscreen
+						referrerpolicy="no-referrer-when-downgrade"
+					></iframe>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contato -->
+	<section id="contato" class="scroll-mt-16 border-t border-white/5 bg-neutral-900/40 py-28">
+		<div class="mx-auto max-w-2xl px-4 text-center sm:px-6">
+			<h2 class="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Agende sua primeira aula</h2>
+			<p class="mb-10 text-lg leading-relaxed text-neutral-400">
+				A primeira aula é gratuita. Chame no WhatsApp e venha conhecer a CT Arena Team.
+			</p>
+			<div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+				<a
+					href={WPP}
+					target="_blank"
+					rel="noopener"
+					class="w-full rounded-full bg-amber-500 px-7 py-3 font-semibold text-neutral-950 transition hover:bg-amber-400 active:scale-[0.98] sm:w-auto"
+				>
+					Agendar aula experimental
+				</a>
+				<a
+					href={INSTA}
+					target="_blank"
+					rel="noopener"
+					class="w-full rounded-full border border-white/15 px-7 py-3 font-semibold text-neutral-200 transition hover:border-amber-400 hover:text-amber-300 active:scale-[0.98] sm:w-auto"
+				>
+					Seguir no Instagram
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>

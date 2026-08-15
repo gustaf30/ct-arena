@@ -1,0 +1,214 @@
+---
+import '../styles/global.css';
+
+const img = (name: string) => `${import.meta.env.BASE_URL}img/${name}`;
+const anchor = (id: string) => `${import.meta.env.BASE_URL}#${id}`;
+const WPP = 'https://wa.me/5542991322939';
+const INSTA = 'https://instagram.com/ctarenateampg';
+
+const navLinks = [
+	{ href: anchor('sobre'), label: 'Sobre' },
+	{ href: anchor('modalidades'), label: 'Modalidades' },
+	{ href: anchor('horarios'), label: 'Horários' },
+	{ href: anchor('valores'), label: 'Valores' },
+	{ href: anchor('localizacao'), label: 'Localização' },
+];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta
+			name="description"
+			content="CT ARENA TEAM. Academia de Muay Thai, Jiu-Jitsu e Capoeira em Ponta Grossa. Treinos para todos os níveis, do iniciante ao competidor. Agende sua aula experimental."
+		/>
+		<meta property="og:title" content="CT ARENA TEAM. Muay Thai, Jiu-Jitsu e Capoeira em Ponta Grossa" />
+		<meta property="og:type" content="website" />
+		<meta property="og:image" content={img('logo.jpg')} />
+		<link rel="icon" type="image/jpeg" href={img('logo.jpg')} />
+		<title>CT ARENA TEAM</title>
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'SportsActivityLocation',
+			name: 'CT ARENA TEAM',
+			image: `${import.meta.env.BASE_URL}img/logo.jpg`,
+			telephone: '+5542991322939',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: 'Rua Minas Gerais, 887, Boa Vista',
+				addressLocality: 'Ponta Grossa',
+				addressRegion: 'PR',
+				addressCountry: 'BR',
+			},
+			url: `https://gustaf30.github.io${import.meta.env.BASE_URL}`,
+			sameAs: [INSTA],
+		})} />
+	</head>
+	<body class="bg-neutral-950 font-sans text-neutral-100 antialiased">
+		<header
+			id="site-header"
+			class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-neutral-950/85 backdrop-blur"
+		>
+			<nav class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6" aria-label="Principal">
+				<a href={anchor('inicio')} class="flex items-center gap-3">
+					<img
+						src={img('logo.jpg')}
+						alt="Logo da CT Arena Team"
+						class="h-10 w-10 rounded-full object-cover ring-2 ring-amber-500"
+					/>
+					<span class="text-base font-bold tracking-tight">
+						CT <span class="text-amber-400">ARENA</span> TEAM
+					</span>
+				</a>
+				<div class="hidden items-center gap-7 text-sm font-medium text-neutral-300 lg:flex">
+					{navLinks.map((link) => (
+						<a href={link.href} class="transition hover:text-amber-400">
+							{link.label}
+						</a>
+					))}
+				</div>
+				<div class="flex items-center gap-3">
+					<a
+						href={WPP}
+						target="_blank"
+						rel="noopener"
+						class="hidden rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-neutral-950 transition hover:bg-amber-400 active:scale-[0.98] sm:inline-block"
+					>
+						Agendar aula experimental
+					</a>
+					<button
+						id="menu-toggle"
+						type="button"
+						class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/15 transition hover:border-amber-400 lg:hidden"
+						aria-label="Abrir menu"
+						aria-expanded="false"
+						aria-controls="mobile-menu"
+					>
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+							<path id="icon-open" d="M4 7h16M4 12h16M4 17h16" />
+							<path id="icon-close" d="M6 6l12 12M18 6L6 18" class="hidden" />
+						</svg>
+					</button>
+				</div>
+			</nav>
+			<div
+				id="mobile-menu"
+				class="hidden border-t border-white/10 bg-neutral-950 px-4 pb-6 pt-3 lg:hidden"
+			>
+				<div class="flex flex-col gap-1">
+					{navLinks.map((link) => (
+						<a
+							href={link.href}
+							class="rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-300 transition hover:bg-white/5 hover:text-amber-400"
+						>
+							{link.label}
+						</a>
+					))}
+					<a
+						href={WPP}
+						target="_blank"
+						rel="noopener"
+						class="mt-3 rounded-full bg-amber-500 px-5 py-2.5 text-center text-sm font-semibold text-neutral-950 transition hover:bg-amber-400"
+					>
+						Agendar aula experimental
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<main>
+			<slot />
+		</main>
+
+		<footer class="border-t border-white/10 bg-neutral-900/50 py-12">
+			<div class="mx-auto max-w-7xl px-4 sm:px-6">
+				<div class="flex flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left">
+					<div class="flex items-center gap-3">
+						<img
+							src={img('logo.jpg')}
+							alt="Logo da CT Arena Team"
+							class="h-11 w-11 rounded-full object-cover ring-2 ring-amber-500"
+						/>
+						<div>
+							<p class="font-bold">CT <span class="text-amber-400">ARENA</span> TEAM</p>
+							<p class="text-sm text-neutral-400">
+								Rua Minas Gerais, 887 - Boa Vista, Ponta Grossa - PR
+							</p>
+						</div>
+					</div>
+					<div class="flex flex-col items-center gap-2 text-sm sm:items-end">
+						<a
+							href={WPP}
+							target="_blank"
+							rel="noopener"
+							class="font-semibold text-amber-400 transition hover:text-amber-300"
+						>
+							WhatsApp (42) 99132-2939
+						</a>
+						<a
+							href={INSTA}
+							target="_blank"
+							rel="noopener"
+							class="font-semibold text-amber-400 transition hover:text-amber-300"
+						>
+							@ctarenateampg
+						</a>
+					</div>
+				</div>
+				<p class="mt-8 border-t border-white/10 pt-6 text-center text-xs text-neutral-500">
+					© {new Date().getFullYear()} CT Arena Team. Todos os direitos reservados.
+				</p>
+			</div>
+		</footer>
+
+		<script>
+			const menuToggle = document.getElementById('menu-toggle');
+			const mobileMenu = document.getElementById('mobile-menu');
+			const iconOpen = document.getElementById('icon-open');
+			const iconClose = document.getElementById('icon-close');
+
+			if (menuToggle && mobileMenu) {
+				menuToggle.addEventListener('click', () => {
+					const open = mobileMenu.classList.toggle('hidden');
+					menuToggle.setAttribute('aria-expanded', String(!open));
+					menuToggle.setAttribute('aria-label', open ? 'Abrir menu' : 'Fechar menu');
+					iconOpen?.classList.toggle('hidden');
+					iconClose?.classList.toggle('hidden');
+				});
+				mobileMenu.querySelectorAll('a').forEach((link) => {
+					link.addEventListener('click', () => {
+						mobileMenu.classList.add('hidden');
+						menuToggle.setAttribute('aria-expanded', 'false');
+						iconOpen?.classList.remove('hidden');
+						iconClose?.classList.add('hidden');
+					});
+				});
+			}
+
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			if (reduceMotion) {
+				document.querySelectorAll('video').forEach((v) => v.pause());
+			}
+			if (!reduceMotion && 'IntersectionObserver' in window) {
+				const revealEls = document.querySelectorAll('[data-reveal]');
+				const io = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('is-visible');
+								io.unobserve(entry.target);
+							}
+						}
+					},
+					{ threshold: 0.15 }
+				);
+				revealEls.forEach((el) => io.observe(el));
+			} else {
+				document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-visible'));
+			}
+		</script>
+	</body>
+</html>
