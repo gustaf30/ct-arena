@@ -7,8 +7,8 @@ const icon = (name: string) => `${import.meta.env.BASE_URL}icon/${name}`;
 const WPP = 'https://wa.me/5542991322939';
 const INSTA = 'https://instagram.com/ctarenateampg';
 const BENEFICIOS = [
-	{ icon: icon('totalpass.svg'), alt: 'TotalPass', label: 'TotalPass' },
-	{ icon: icon('wellhub.png'), alt: 'Wellhub', label: 'Wellhub' },
+	{ icon: icon('totalpass.svg'), alt: 'TotalPass', label: 'TotalPass', h: 'h-5' },
+	{ icon: icon('wellhub.png'), alt: 'Wellhub', label: 'Wellhub', h: 'h-20' },
 ];
 const MAP_EMBED =
 	'https://maps.google.com/maps?q=' +
@@ -285,20 +285,17 @@ const precos = [
 				))}
 			</div>
 			<div
-				class="mt-12 flex flex-col items-center justify-center gap-4 border-t border-white/10 pt-8 sm:flex-row sm:gap-6"
+				class="mt-12 flex flex-col items-center justify-center gap-3 border-t border-white/10 pt-8"
 				data-reveal
 			>
-				<p class="text-sm text-neutral-400">Aceitamos TotalPass e Wellhub</p>
+				<p class="text-sm text-neutral-400">Aceitamos:</p>
 				<div class="flex items-center gap-3">
 					{BENEFICIOS.map((b) => (
-						<span
-							class="inline-flex items-center rounded-full bg-white px-5 py-2"
-							title={b.label}
-						>
+						<span class="inline-flex items-center" title={b.label}>
 							<img
 								src={b.icon}
 								alt={b.alt}
-								class="h-5 max-w-28 object-contain"
+								class={`${b.h} max-w-32 object-contain`}
 								loading="lazy"
 							/>
 						</span>
